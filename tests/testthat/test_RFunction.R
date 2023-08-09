@@ -3,11 +3,19 @@ library('move2')
 test_data <- test_data("input3_move2.rds") #file must be move2!
 
 test_that("happy path", {
-  actual <- rFunction(data = test_data, sdk = "unit test", year = 2005)
-  expect_equal(unique(lubridate::year(mt_time(actual))), 2005)
+  actual <- rFunction(data = test_data, time = TRUE, weekdays = TRUE, 
+                      dd = TRUE, mm = TRUE, yyyy = TRUE)
+  expect_equal(ncol(actual), (ncol(test_data)+6))
 })
 
-test_that("year not included", {
-  actual <- rFunction(data = test_data, sdk = "unit test", year = 2023)
-  expect_null(actual)
-})
+test_that("happy path1", {
+  actual <- rFunction(data = test_data, time = TRUE, weekdays = TRUE, 
+                      dd = TRUE, mm = FALSE, yyyy = TRUE)
+  expect_equal(ncol(actual), (ncol(test_data)+5))
+}) 
+
+test_that("happy path1", {
+  actual <- rFunction(data = test_data, time = FALSE, weekdays = FALSE, 
+                      dd = FALSE, mm = FALSE, yyyy = FALSE)
+  expect_equal(ncol(actual), (ncol(test_data)+1))
+}) 
