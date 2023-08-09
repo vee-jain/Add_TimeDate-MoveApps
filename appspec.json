@@ -1,81 +1,94 @@
 {
   "settings": [
-    {
-      "id": "sdk",
-      "name": "The name of the MoveApps SDK",
-      "description": "Showcase requesting a string input from the users of your app.",
-      "defaultValue": "MoveApps SDK",
-      "type": "STRING"
+  	{
+      "id": "time",
+      "name": "Time (HH:MM:SS)",
+      "description": "Select if you want to add a time column to your data (TRUE) or not (FALSE)",
+      "defaultValue": true,
+      "type": "CHECKBOX"
     },
-    {
-      "id": "year",
-      "name": "The year",
-      "description": "Insert description for the year setting setting",
-      "defaultValue": 2022,
-      "type": "INTEGER"
+      	{
+      "id": "weekdays",
+      "name": "Weekdays (Monday - Sunday)",
+      "description": "Select if you want to add a weekday column to your data (TRUE) or not (FALSE)",
+      "defaultValue": true,
+      "type": "CHECKBOX"
     },
-    {
-      "id": "yourLocalFileSettingId",
-      "name": "Personalization",
-      "description": "You can personalize the dashboard by providing a file named 'sample.txt'",
-      "type": "LOCAL_FILE"
+      	{
+      "id": "dd",
+      "name": "Day (dd)",
+      "description": "Select if you want to add a day column to your data (TRUE) or not (FALSE)",
+      "defaultValue": true,
+      "type": "CHECKBOX"
+    },
+      	{
+      "id": "mm",
+      "name": "Month (mm)",
+      "description": "Select if you want to add a month column to your data (TRUE) or not (FALSE)",
+      "defaultValue": true,
+      "type": "CHECKBOX"
+    },
+      	{
+      "id": "yyyy",
+      "name": "Year (yyyy)",
+      "description": "Select if you want to add a year column to your data (TRUE) or not (FALSE)",
+      "defaultValue": true,
+      "type": "CHECKBOX"
     }
   ],
   "dependencies": {
     "R": [
       {
+        "name": "move2"
+      },
+      {
         "name": "lubridate"
       },
       {
-        "name": "move2"
+        "name": "dplyr"
       }
-    ]
+	]
   },
-  "createsArtifacts": true,
-  "providedAppFiles": [
-    {
-      "settingId": "yourLocalFileSettingId",
-      "from": "data/local_app_files/provided-app-files/yourLocalFileSettingId/"
-    }
-  ],
   "license": {
     "key": "MIT"
   },
   "language": "eng",
   "keywords": [
-    "example",
-    "template"
+    "column",
+	"time",
+    "date",
+    "weekday"
   ],
   "people": [
     {
-      "firstName": "Charles",
+    "firstName": "Varalika",
       "middleInitials": null,
-      "lastName": "Darwin",
-      "email": "creator@example.com",
-      "roles": [
-        "author",
-        "creator"
-      ],
-      "orcid": null,
-      "affiliation": null,
+      "lastName": "Jain",
+      "email": "varalika.jain@univie.ac.at",
+      "roles": ["author", "creator"],
+      "orcid": "0000-0002-4809-9551",
+      "affiliation": "University of Vienna",
       "affiliationRor": null
-    }
-  ],
-  "funding": [
-    {
-      "name": "funder name",
-      "comment": "grant for App"
     }
   ],
   "references": [
     {
       "type": "IsDescribedBy",
-      "note": "Darwin, C. 1900. The creation. Journal XY. 1-2",
-      "url": "https://anylink.xyz"
+      "note": "Kranstauber B, Safi K, Scharf A (2023). _move2: Processing and Analysing Animal Trajectories_. R package version 0.2.2.",
+      "url": "https://CRAN.R-project.org/package=move2"
+    },
+        {
+      "type": "IsDescribedBy",
+      "note": "Garrett Grolemund, Hadley Wickham (2011). Dates and Times Made Easy with lubridate. Journal of Statistical Software, 40(3), 1-25.",
+      "url": "https://www.jstatsoft.org/v40/i03/"
+    },
+            {
+      "type": "IsDescribedBy",
+      "note": "Wickham H, François R, Henry L, Müller K, Vaughan D (2023). _dplyr: A Grammar of Data Manipulation_. R package version 1.1.2.",
+      "url": "https://CRAN.R-project.org/package=dplyr"
     }
   ],
   "documentation": {
-    "url": "https://github.com/yourAccount/my-app/README.md"
+    "url": "https://github.com/vee-jain/Add_TimeDate-MoveApps/blob/master/README.md"
   }
 }
-
