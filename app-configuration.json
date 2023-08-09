@@ -1,4 +1,7 @@
 {
-    "sdk": "MoveApps R SDK",
-    "year": 2004
+    "time": true,
+    "weekdays": true,
+    "dd": true,
+    "mm": true,
+    "yyyy": true
 }
