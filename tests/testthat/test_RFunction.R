@@ -14,7 +14,7 @@ test_that("happy path1", {
   expect_equal(ncol(actual), (ncol(test_data)+5))
 }) 
 
-test_that("happy path1", {
+test_that("happy path2", {
   actual <- rFunction(data = test_data, time = FALSE, weekdays = FALSE, 
                       dd = FALSE, mm = FALSE, yyyy = FALSE)
   expect_equal(ncol(actual), (ncol(test_data)+1))
