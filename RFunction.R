@@ -1,37 +1,44 @@
 library('move2')
 library('lubridate')
+library('dplyr')
 
-## The parameter "data" is reserved for the data object passed on from the previous app
-
-# to display messages to the user in the log file of the App in MoveApps
-# one can use the function from the logger.R file:
-# logger.fatal(), logger.error(), logger.warn(), logger.info(), logger.debug(), logger.trace()
-
-# Showcase injecting app setting (parameter `year`)
-rFunction = function(data, sdk, year, ...) {
-  logger.info(paste("Welcome to the", sdk))
-  result <- if (any(lubridate::year(mt_time(data)) == year)) { 
-    data[lubridate::year(mt_time(data)) == year,]
-  } else {
-    NULL
+rFunction = function(data, time, weekdays, 
+                     dd, mm, yyyy, ...) {
+  #' Create a data column
+  result <- 
+    as.data.frame(data) %>% mutate(date = as.Date(timestamp)) %>% relocate(c(date), .after= timestamp)
+  #' Add time
+  if (time){
+    result <- result %>% mutate(time = format(timestamp, format = "%H:%M:%S")) %>%
+      relocate(c(time), .after= timestamp)
   }
-  if (!is.null(result)) {
-    # Showcase creating an app artifact. 
-    # This artifact can be downloaded by the workflow user on Moveapps.
-    artifact <- appArtifactPath("plot.png")
-    logger.info(paste("plotting to artifact:", artifact))
-    png(artifact)
-    plot(result)
-    dev.off()
-  } else {
-    logger.warn("nothing to plot")
+  #' Add weekday
+  if(weekdays){
+    result <- result %>% mutate(weekday = factor(weekdays(date), 
+                                                 levels = c("Monday", "Tuesday", "Wednesday","Thursday", 
+                                                            "Friday", "Saturday", "Sunday"))) %>%
+      relocate(c(weekday), .after= timestamp)
   }
-  # Showcase to access a file ('auxiliary files') that is 
-  # a) provided by the app-developer and 
-  # b) can be overridden by the workflow user.
-  fileName <- paste0(getAppFilePath("yourLocalFileSettingId"), "sample.txt")
-  logger.info(readChar(fileName, file.info(fileName)$size))
-
+  #' Add day in 'dd' format
+  if(dd){
+    result <- result %>% mutate(dd = format(as.Date(date), "%d")) %>%
+      relocate(c(dd), .after= timestamp)
+  }
+  #' Add month in 'mm' format
+  if(mm){
+    result <- result %>% mutate(mm = format(as.Date(date), "%m")) %>%
+      relocate(c(mm), .after= timestamp)
+  }
+  #' Add year in 'yyyy' format
+  if(yyyy){
+    result <- result %>% mutate(yyyy = format(as.Date(date), "%Y")) %>%
+      relocate(c(yyyy), .after= timestamp)
+  }
+  
+  #' Export the csv file
+  write.csv(result, file = appArtifactPath("data_with_cols.csv"), row.names = FALSE)
+  
   # provide my result to the next app in the MoveApps workflow
   return(result)
 }
+
